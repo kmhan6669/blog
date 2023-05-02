@@ -32,7 +32,7 @@ const contents = [{
       insert: "\n"
     },
     {
-      insert: "대박\n"
+      insert: "대박 와우\n"
     }
   ]
 }];
