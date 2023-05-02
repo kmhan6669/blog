@@ -1,7 +1,13 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const contentesRouter = require('./routes/contents/contents.router')
 
+
+const MONGO_URL = 'mongodb+srv://kmhan:6XTnKTSHNgeCRsdp@blog.92gokew.mongodb.net/test';
+
+// quilljs delta
 const contents = [{
   id: 0,
   date : new Date(),
@@ -37,40 +43,40 @@ const contents = [{
   ]
 }];
 
+// mongoDB connection options
+mongoose.connection.once('open', ()=>{
+  console.log('MongoDB connection ready!');
+});
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+});
+
+
 const app = express();
+
 // CORS설정
 app.use(cors());
 
 // morgan 로그관리
 app.use(morgan('combined'))
 
-
 app.use(express.json());
 
 //정적 파일 제공하기 빌드해서 퍼블릭에 넣어야함
 //app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.get('/textarea', (req, res)=>{
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
-  res.send(contents);
-});
-
-app.prependOnceListener('/textarea', (req, res)=>{
-  const newContents = req.body;
-  contents.push({
-    id: contents.length,
-    ...newContents,
-  });
-  res.setHeader(201,'Content-Type', 'application/json; charset=utf-8')
-  res.send(contents[contents.length-1]);
-})
-
-
+//example url
+app.use('/textarea', contentesRouter);
 
 app.get('/', (req, res) => {
   res.send("hello server")
 });
 
-app.listen(8000, ()=>{
-  console.log('listening on port 8000...')
-});
+async function startSever () {
+  await mongoose.connect(MONGO_URL);
+
+  app.listen(8000, ()=>{
+    console.log('listening on port 8000...')
+  });
+}
+startSever();
