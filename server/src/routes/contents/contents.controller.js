@@ -1,54 +1,20 @@
-const contents = [{
-    id: 0,
-    date : new Date(),
-    creator: '',
-    ops: [
-      {
-        attributes: {
-          bold: true
-        },
-        insert: "이거 되는거 맞아?"
-      },
-      {
-      attributes: {
-          header: 1
-        },
-        insert: "\n"
-      },
-      {
-        attributes: {
-          italic: true
-        },
-        insert: "헐 이게 되네ㄷㄷ"
-      },
-      {
-        attributes: {
-          header: 2
-        },
-        insert: "\n"
-      },
-      {
-        insert: "대박 와우\n"
-      }
-    ]
-  }];
+const { postNewContents, getAllContents } = require('../../models/contents.models');
 
-
-function getAllContents (req, res) {
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.send(contents);
+//Get contents
+async function httpGetAllContents (req, res) {
+  res.status(200).json(await getAllContents());
 }
-
-function postContent (req, res) {
+//Post content
+async function httpPostContent (req, res) {
     const newContents = req.body;
-    contents.push({
-      id: contents.length,
-      ...newContents,
-    });
-    res.status(201).send(contents[contents.length-1]);
+    if( !newContents.creator || !newContents.ops ){
+      return res.status(400).json({ error: "missing require property"})
+    }
+    await postNewContents(newContents);
+    res.status(201).json();
 }
 
 module.exports = {
-    getAllContents,
-    postContent,
+    httpGetAllContents,
+    httpPostContent,
 };

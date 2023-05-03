@@ -7,41 +7,6 @@ const contentesRouter = require('./routes/contents/contents.router')
 
 const MONGO_URL = 'mongodb+srv://kmhan:6XTnKTSHNgeCRsdp@blog.92gokew.mongodb.net/test';
 
-// quilljs delta
-const contents = [{
-  id: 0,
-  date : new Date(),
-  creator: '',
-  ops: [
-    {
-      attributes: {
-        bold: true
-      },
-      insert: "이거 되는거 맞아?"
-    },
-    {
-    attributes: {
-        header: 1
-      },
-      insert: "\n"
-    },
-    {
-      attributes: {
-        italic: true
-      },
-      insert: "헐 이게 되네ㄷㄷ"
-    },
-    {
-      attributes: {
-        header: 2
-      },
-      insert: "\n"
-    },
-    {
-      insert: "대박 와우\n"
-    }
-  ]
-}];
 
 // mongoDB connection options
 mongoose.connection.once('open', ()=>{
@@ -65,7 +30,7 @@ app.use(express.json());
 //정적 파일 제공하기 빌드해서 퍼블릭에 넣어야함
 //app.use(express.static(path.join(__dirname, '..', 'public')));
 
-//example url
+//example url 나중에 quill들어오면 그때 수정
 app.use('/textarea', contentesRouter);
 
 app.get('/', (req, res) => {

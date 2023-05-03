@@ -1,10 +1,10 @@
 const contentesRouter = require('express').Router();
 
-const {getAllContents, postContent}= require('./contents.controller')
+const {httpGetAllContents, httpPostContent}= require('./contents.controller')
 
-contentesRouter.get('/', getAllContents);
+contentesRouter.get('/', httpGetAllContents);
   
-contentesRouter.post('/', postContent)
+contentesRouter.post('/',httpPostContent)
   
 
 
