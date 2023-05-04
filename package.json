@@ -12,7 +12,11 @@
     "install": "yarn install-server && yarn install-client",
     "server": "yarn --cwd server start",
     "client": "yarn --cwd client start",
-    "start": "yarn --cwd server watch & yarn --cwd client start",
+    "start": "concurrently 'yarn:server' 'yarn:client'",
     "watch": "yarn --cwd client build && yarn --cwd server start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22"
   }
 }

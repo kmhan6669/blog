@@ -13,7 +13,7 @@ const contentsSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  ops: [Object]
+  ops: new mongoose.Schema.Types.Mixed
 })
 
 module.exports = mongoose.model('Content', contentsSchema);

@@ -37,7 +37,15 @@ const contents = {
 };
 
 //더미데이터 몽고db에 넣기
- saveContents (contents);
+
+//시작시 db데이터 확인 함수
+async function getContentsWhenStartServer () {
+  const anyContent = await contentsDatabase.findOne({id: 1});
+  if(!anyContent){
+   await saveContents(contents);
+   console.log('Load All Posts .......')
+  }
+}
 
 //All contents 보내는 함수
 async function getAllContents () {
@@ -47,7 +55,7 @@ async function getAllContents () {
 
 //마지막 id 리턴하는 함수
 async function getLatestContentIdNumber () {
-  const latestContent = await contentsDatabase.findOneAndDelete({}).sort('-id');
+  const latestContent = await contentsDatabase.findOne({}).sort('-id');
   if(!latestContent){
     return DEFAULT_ID;
   }
@@ -61,7 +69,7 @@ async function saveContents (content) {
 
 // 저장할 데이터를 스키마에 맞게 바꿔서 저장 함수
 async function postNewContents (content){
-  const newContentId = await getLatestContentIdNumber() + 1;
+  const newContentId = (await getLatestContentIdNumber()) + 1;
   console.log(newContentId);
   const newContent = Object.assign(content, { id: newContentId });
   await saveContents(newContent);
@@ -71,4 +79,5 @@ module.exports = {
   saveContents,
   postNewContents,
   getAllContents,
+  getContentsWhenStartServer,
   };

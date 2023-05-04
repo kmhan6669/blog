@@ -11,8 +11,16 @@ async function httpPostContent (req, res) {
       return res.status(400).json({ error: "missing require property"})
     }
     await postNewContents(newContents);
-    res.status(201).json();
+    res.status(201).json(newContents);
 }
+//Modify content
+async function httpModifyContent (req, res) {
+  const id = Number(req.params.id)
+  
+}
+//Delete content
+
+
 
 module.exports = {
     httpGetAllContents,
