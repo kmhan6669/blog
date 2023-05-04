@@ -1,11 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from "./error-page";
+import PostDetail from './posts/PostDetail';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'posts/:postId',
+    element: <PostDetail />
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
