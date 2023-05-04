@@ -16,10 +16,12 @@ async function httpPostContent (req, res) {
 //Modify content
 async function httpModifyContent (req, res) {
   const id = Number(req.params.id)
-  
+
 }
 //Delete content
-
+async function httpDeleteContent (req, res) {
+  const id = Number(req.params.id)
+}
 
 
 module.exports = {

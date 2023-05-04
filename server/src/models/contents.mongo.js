@@ -12,6 +12,10 @@ const contentsSchema = new mongoose.Schema({
   creator: {
     type: String,
     require: true,
+  },  
+  title: {
+    type: String,
+    require: true,
   },
   ops: new mongoose.Schema.Types.Mixed
 })

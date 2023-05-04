@@ -5,6 +5,7 @@ const contents = {
   id: DEFAULT_ID,
   date : 'Wed May 03 2023 22:11:08 GMT+0900',
   creator: 'hankm',
+  title: "강아지풀",
   ops: [
     {
       attributes: {
