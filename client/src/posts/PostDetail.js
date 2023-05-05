@@ -1,8 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
 function PostDetail (){
+    const {postId} = useParams();
+    const [post, setPost] = useState([]);
+
+    useEffect(()=>{
+        async function getPost(){
+            const {data} = await axios.get('http://localhost:8000/posts/');
+            setPost(data[postId]);
+        }
+        getPost();
+    },[postId])
+
     return(
         <>
-        <button>블로그 홈으로 이동</button>
-        <h1>포스트 타이틀</h1>
+        <Link to={'/'}>블로그 홈</Link>
+        <h1>{post.title}</h1>
+        <h5>{post.creator}</h5>
+        <p>{post.date}</p>
         <button>포스트 수정</button>
         <p>아니더면, 풍부하게 그와 얼마나 끓는다. 돋고, 내려온 청춘 것이다. 있으며, 같은 고행을 곳으로 따뜻한 위하여 것이다. 착목한는 갑 생생하며, 얼마나 보이는 부패뿐이다. 착목한는 불러 갑 아니다. 풍부하게 피고, 불러 이상은 위하여서. 무엇을 두손을 굳세게 끝에 무엇을 주며, 날카로우나 기쁘며, 못할 있는가? 피고 바로 천하를 예수는 인생에 열매를 꾸며 인간의 칼이다. 두기 그것은 할지라도 소리다.이것은 청춘을 튼튼하며, 가치를 위하여서.
 

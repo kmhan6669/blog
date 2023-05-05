@@ -1,12 +1,13 @@
 import PostListItem from "./PostListItem";
 
-function PostList(){
+function PostList({ posts }){
     return(
         <>
-            <PostListItem />
-            <PostListItem />
-            <PostListItem />
-            <PostListItem />
+        {
+            posts?.map((post)=>(
+                <PostListItem post={post}/>
+            ))
+        }
         </>
     )
 }
