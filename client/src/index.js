@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./error-page";
 import PostDetail from './posts/PostDetail';
+import NewPost from './NewPost.js'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: 'posts/:postId',
     element: <PostDetail />
+  },
+  {
+    path: 'newpost',
+    element: <NewPost />
   }
 ]);
 
