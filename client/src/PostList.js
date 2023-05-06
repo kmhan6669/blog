@@ -6,16 +6,18 @@ const PostListWrapper = styled.div`
     display: grid;
     grid-gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
-    margin: 0;
+    margin: 1.5rem;
     padding: 0;
     box-sizing: border-box;
 `
 
 function PostList({ posts }){
+    const reversePosts = [...posts].reverse();
+
     return(
         <PostListWrapper>
         {
-            posts?.map((post)=>(
+            reversePosts?.map((post)=>(
                 <PostListItem post={post}/>
             ))
         }

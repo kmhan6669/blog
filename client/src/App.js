@@ -25,6 +25,7 @@ function App() {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 1.5rem;
   `
 
   return (
