@@ -9,6 +9,9 @@
   "scripts": {
     "install-server": "yarn --cwd server install",
     "install-client": "yarn --cwd client install",
+    "install": "yarn && yarn install-server && yarn install-client",
+    "server": "yarn --cwd server start",
+    "client": "yarn --cwd client start",
     "start": "concurrently 'yarn:server' 'yarn:client'",
     "watch": "yarn --cwd client build && yarn --cwd server start"
   },

@@ -1,12 +1,12 @@
 const contentesRouter = require('express').Router();
 
-const {httpGetAllContents, httpPostContent}= require('./contents.controller')
+const { httpGetAllContents, httpPostContent, httpDeleteContent, httpModifyContent }= require('./contents.controller')
 
 contentesRouter.get('/', httpGetAllContents);
   
 contentesRouter.post('/', httpPostContent);
   
-contentesRouter.get('/', httpDeletContent);
+contentesRouter.get('/', httpDeleteContent);
 
 contentesRouter.get('/', httpModifyContent); 
 
