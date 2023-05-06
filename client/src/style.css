@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.linkBtn {
+    text-decoration: none;
+    background-color: white;
+    color: #333333;
+    box-sizing: border-box;
+    font-weight: 600;
+  }
+  
+.linkBtn:hover {
+    border-bottom: 2px solid #333333;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: #111111;
+    color: white;
+    box-sizing: border-box;
+    font-weight: 600;
+    padding: 8px;
+  }
+  
+.btn:hover {
+    background-color: #333333;
+}
