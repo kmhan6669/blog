@@ -26,10 +26,10 @@ function PostDetail (){
     return(
         <>
         <Link to={'/'}>블로그 홈</Link>
+        <button>포스트 수정</button>
         <h1>{post.title}</h1>
         <h5>{post.creator}</h5>
         <p>{post.date}</p>
-        <button>포스트 수정</button>
         <div dangerouslySetInnerHTML={{__html:html}} />
         </>
     )
