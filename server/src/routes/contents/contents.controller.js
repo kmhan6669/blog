@@ -25,6 +25,8 @@ async function httpDeleteContent (req, res) {
 
 
 module.exports = {
-    httpGetAllContents,
-    httpPostContent,
+  httpGetAllContents,
+  httpPostContent,
+  httpModifyContent,
+  httpDeleteContent
 };

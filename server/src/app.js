@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const cors = require('cors');
 
 const contentesRouter = require('./routes/contents/contents.router')
@@ -32,7 +33,8 @@ app.use(morgan('combined'))
 app.use(express.json());
 
 //정적 파일 제공하기 빌드해서 퍼블릭에 넣어야함
-//app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 //example url
 app.use('/posts', contentesRouter);
