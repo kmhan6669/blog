@@ -8,6 +8,7 @@
     "nodemon": "^2.0.22"
   },
   "scripts": {
+    "install": "install",
     "start": "node src/app.js",
     "watch": "nodemon src/app.js"
   }

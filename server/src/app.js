@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const contentesRouter = require('./routes/contents/contents.router')
-const {getContentsWhenStartServer} = require('./models/contents.models');
+const imageRouter = require('./routes/contents/image.router')
+const { getContentsWhenStartServer } = require('./models/contents.models');
 
 const MONGO_URL= 'mongodb+srv://kmhan:6XTnKTSHNgeCRsdp@blog.92gokew.mongodb.net/?retryWrites=true&w=majority'
 
@@ -35,7 +36,7 @@ app.use(express.json());
 
 //example url
 app.use('/posts', contentesRouter);
-
+app.use('/image', imageRouter);
 app.get('/', (req, res) => {
   res.send("hello server")
 });
