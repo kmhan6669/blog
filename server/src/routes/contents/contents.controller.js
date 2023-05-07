@@ -8,7 +8,7 @@ async function httpGetAllContents (req, res) {
 async function httpPostContent (req, res) {
     const newContents = req.body;
     if( !newContents.creator || !newContents.ops ){
-      return res.status(400).json({ error: "missing require property"})
+      return res.status(400).json({ error: "missing required property"})
     }
     await postNewContents(newContents);
     res.status(201).json(newContents);
