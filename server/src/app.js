@@ -34,6 +34,7 @@ app.use(express.json());
 //정적 파일 제공하기 빌드해서 퍼블릭에 넣어야함
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
+//미들웨어 static serving하는 폴더를 지정해줌, 오픈해두면 갖다써라
 
 //example url
 app.use('/posts', contentsRouter);

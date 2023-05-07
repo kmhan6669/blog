@@ -1,9 +1,11 @@
 import { useRef, useState, useMemo } from "react";
 import axios from 'axios';
 //이렇게 라이브러리를 불러와서 사용하면 됩니다
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+const Image = Quill.import("formats/image")
+Image.sanitize = (url) => url;
 
 const EditorComponent = () => {
   const QuillRef = useRef();
@@ -31,8 +33,9 @@ const EditorComponent = () => {
       formData.append('img', file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       try {
-        const result = await axios.post('http://localhost:8000/image', formData);
-        const IMG_URL = result.data.url;
+        // const result = await axios.post('http://localhost:8000/image', formData);
+        // const IMG_URL = result.data.url;
+
         // 이 URL을 img 태그의 src에 넣은 요소를 현재 에디터의 커서에 넣어주면 에디터 내에서 이미지가 나타난다
         // src가 base64가 아닌 짧은 URL이기 때문에 데이터베이스에 에디터의 전체 글 내용을 저장할 수있게된다
         // 이미지는 꼭 로컬 백엔드 uploads 폴더가 아닌 다른 곳에 저장해 URL로 사용하면된다.
@@ -48,22 +51,44 @@ const EditorComponent = () => {
         // 2. 현재 에디터 커서 위치값을 가져온다
         const range = editor.getSelection();
         // 가져온 위치에 이미지를 삽입한다
-        editor.insertEmbed(range.index, 'image', IMG_URL);
+        const imageUrl = URL.createObjectURL(file);
+        editor.insertEmbed(range.index, 'image', imageUrl);
       } catch (error) {
         console.log(error);
       }
     });
   };
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
-    console.log(contents);
-    axios.post("http://localhost:8000/posts", {
-      creator: creator, 
-      date: new Date(), 
-      ...contents,
-      title: title
-    })
+    
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('creator', creator);
+//Promise.all() 배열 모든 작업이 끝나면 출력한다.
+    const images = await Promise.all(
+      contents.ops
+        .filter((op) => op.insert?.image)
+        .map(async (op) => ({
+          blobUrl: op.insert.image,
+          imageFile: await fetch(op.insert.image).then(r => r.blob())
+        })),
+    );
+    images.forEach(({ blobUrl, imageFile }) => {
+      formData.append(blobUrl, imageFile);
+    });
+
+    formData.append('contents', JSON.stringify(contents));
+
+    console.log(formData);
+
+    // axios.post("http://localhost:8000/posts", {
+    //   creator: creator, 
+    //   date: new Date(), 
+    //   ...contents,
+    //   title: title
+    // })
   }
   function handleChange(content, delta, source, editor) {
     setContents(editor.getContents());
@@ -112,19 +137,19 @@ return (
       <input onChange={(e) => { setCreator(e.target.value) }} value={creator}></input>
     </div>
       <ReactQuill
-               ref={(element) => {
-                  if (element !== null) {
-                    QuillRef.current = element;
-                  }
-                }}
-                value={contents}
-                onChange={handleChange}
-                modules={modules}
-                theme="snow"
-      placeholder="내용을 입력해주세요."
-      formats={formats}
-              />
-              <button onClick={submit}>Submit</button>
+        ref={(element) => {
+          if (element !== null) {
+            QuillRef.current = element;
+          }
+        }}
+        value={contents}
+        onChange={handleChange}
+        modules={modules}
+        theme="snow"
+        placeholder="내용을 입력해주세요."
+        formats={formats}
+      />
+      <button onClick={submit}>Submit</button>
    </>
 )
 }

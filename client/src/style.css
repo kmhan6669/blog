@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.App {
+    max-width: 1320px;
+    display: flex; 
+    justify-content: center;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
 .linkBtn {
     text-decoration: none;
     background-color: white;
