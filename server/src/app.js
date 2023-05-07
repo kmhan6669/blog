@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
 
-const contentesRouter = require('./routes/contents/contents.router')
+const contentsRouter = require('./routes/contents/contents.router')
 const imageRouter = require('./routes/contents/image.router')
 const { getContentsWhenStartServer } = require('./models/contents.models');
 
@@ -35,9 +35,10 @@ app.use(express.json());
 //정적 파일 제공하기 빌드해서 퍼블릭에 넣어야함
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
+//미들웨어 static serving하는 폴더를 지정해줌, 오픈해두면 갖다써라
 
 //example url
-app.use('/posts', contentesRouter);
+app.use('/posts', contentsRouter);
 app.use('/image', imageRouter);
 app.get('/', (req, res) => {
   res.send("hello server")

@@ -69,11 +69,13 @@ const Img = styled.img`
 
 function PostListItem ({post}){
 
-    var thumbnail = "";
-    post.ops.some(function(ops){
-        if(ops.insert && ops.insert.image) thumbnail = ops.insert.image;
-        return thumbnail.length > 0; 
-    });
+    // post.ops.some(function(ops){
+    //     if(ops.insert && ops.insert.image) thumbnail = ops.insert.image;
+    //     return thumbnail.length > 0; 
+    // });
+
+    const thumbnail = post.ops.find((op)=>op.insert?.image)?.insert.image;
+    console.log(thumbnail);
 
     return(
         <PLI>

@@ -4,9 +4,36 @@ import { Link, useParams } from "react-router-dom";
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import styled from "styled-components";
 
+const DetailWrapper = styled.div`
+    max-width: 900px;
+    display: flex; 
+    justify-content: center;
+    margin: 0 auto;
+    flex-direction: column;
+`
+const Header = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem;
+`
+const Contents = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+`
+const Info = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap:8px;
+    margin-bottom:2rem;
+`
+
 function PostDetail (){
     const {postId} = useParams();
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState();
 
     useEffect(()=>{
         async function getPost(){
@@ -23,34 +50,6 @@ function PostDetail (){
 
     const converter = new QuillDeltaToHtmlConverter(post.ops,{});
     const html = converter.convert();
-    console.log(html)
-
-    const DetailWrapper = styled.div`
-        max-width: 900px;
-        display: flex; 
-        justify-content: center;
-        margin: 0 auto;
-        flex-direction: column;
-    `
-    const Header = styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin: 1.5rem;
-    `
-    const Contents = styled.div`
-        display: flex;
-        flex-direction: column;
-        margin: 1.5rem;
-    `
-    const Info = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items:center;
-        gap:8px;
-        margin-bottom:2rem;
-    `
 
     return(
         <DetailWrapper>

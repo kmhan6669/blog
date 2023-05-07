@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from "./error-page";
+import ErrorPage from "./ErrorPage";
 import PostDetail from './posts/PostDetail';
 import NewPost from './NewPost.js'
 

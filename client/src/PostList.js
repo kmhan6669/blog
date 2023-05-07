@@ -17,8 +17,8 @@ function PostList({ posts }){
     return(
         <PostListWrapper>
         {
-            reversePosts?.map((post)=>(
-                <PostListItem post={post}/>
+            reversePosts.map((post)=>(
+                <PostListItem key={post.id} post={post}/>
             ))
         }
         </PostListWrapper>
