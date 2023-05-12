@@ -1,13 +1,21 @@
 const contentesRouter = require('express').Router();
 
-const { httpGetAllContents, httpPostContent, httpDeleteContent, httpModifyContent }= require('./contents.controller')
+const { httpGetAllContents,httpGetContent,  httpPostContent, httpDeleteContent,}= require('./contents.controller')
+const upload = require('./image.router')
 
 contentesRouter.get('/', httpGetAllContents);
-  
-contentesRouter.post('/', httpPostContent);
-  
-contentesRouter.get('/', httpDeleteContent);
 
-contentesRouter.get('/', httpModifyContent); 
+contentesRouter.get('/:id', httpGetContent);
+
+
+
+
+contentesRouter.post('/', httpPostContent);
+
+
+
+
+
+contentesRouter.delete('/:id', httpDeleteContent); 
 
 module.exports = contentesRouter;

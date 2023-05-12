@@ -3,38 +3,10 @@ const DEFAULT_ID = 0;
 //quilljs delta 포멧 ---수정 해야함
 const contents = {
   id: DEFAULT_ID,
-  date : 'Wed May 03 2023 22:11:08 GMT+0900',
+  date : new Date(),
   creator: 'hankm',
-  title: "강아지풀",
-  ops: [
-    {
-      attributes: {
-        bold: true
-      },
-      insert: "이거 되는거 맞아?"
-    },
-    {
-    attributes: {
-        header: 1
-      },
-      insert: "\n"
-    },
-    {
-      attributes: {
-        italic: true
-      },
-      insert: "헐 이게 되네ㄷㄷ"
-    },
-    {
-      attributes: {
-        header: 2
-      },
-      insert: "\n"
-    },
-    {
-      insert: "대박 와우\n"
-    }
-  ]
+  title: "새 글을 입력해주세요",
+  ops:[{"insert":"새글"},{"insert":{"image":"http://localhost:8000/uploads/0fef359c-5529-4863-9eb2-ac4e6bc91afb"}},{"insert":"\n"}]
 };
 
 //더미데이터 몽고db에 넣기
@@ -50,9 +22,15 @@ async function getContentsWhenStartServer () {
 
 //All contents 보내는 함수
 async function getAllContents () {
-  return await contentsDatabase.find({}, {_id: 0, __v: 0,});
-}
+  const contents = await contentsDatabase.find({}, {_id: 0, __v: 0,});
 
+  return contents;
+
+}
+// content 하나 보내는 함수
+async function getContent(id) {
+  return await contentsDatabase.find({id : id},{_id: 0, __v: 0,});
+}
 
 //마지막 id 리턴하는 함수
 async function getLatestContentIdNumber () {
@@ -70,15 +48,31 @@ async function saveContents (content) {
 
 // 저장할 데이터를 스키마에 맞게 바꿔서 저장 함수
 async function postNewContents (content){
-  const newContentId = (await getLatestContentIdNumber()) + 1;
-  console.log(newContentId);
-  const newContent = Object.assign(content, { id: newContentId });
-  await saveContents(newContent);
+    const newContentId = (await getLatestContentIdNumber()) + 1;
+    const newContent = Object.assign(
+      content, 
+      {
+        id: newContentId,
+        date: new Date()
+      }
+    );
+
+    await saveContents(newContent);
+  }
+
+async function postModifyContent (contentId) {
+
+}
+// 삭제하기
+async function deleteContent (contentId){
+  await contentsDatabase.deleteOne({id:contentId})
 }
 
 module.exports = {
-  saveContents,
   postNewContents,
   getAllContents,
   getContentsWhenStartServer,
+  postModifyContent,
+  deleteContent,
+  getContent,
   };
