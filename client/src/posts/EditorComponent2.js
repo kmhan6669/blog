@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import ReactQuill, { Quill,delta } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
+import { API_BASE_URL } from "../apis";
 
 const EditorWrapper = styled.div`
     display: flex;
@@ -38,7 +39,7 @@ function EditorComponent2(){
 
     useEffect(()=>{
         async function getPost(){
-            const {data} = await axios.get('http://localhost:8000/posts/');
+            const {data} = await axios.get(`${API_BASE_URL}/apis/posts/`);
             setPost(data[postId]);
         }
         getPost();

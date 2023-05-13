@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {ReactComponent as Edit} from '../icon/edit.svg'
 import {ReactComponent as Delete} from '../icon/delete.svg'
 import '../style.css'
+import { API_BASE_URL } from "../apis";
 
 
 const DetailWrapper = styled.div`
@@ -46,11 +47,10 @@ function PostDetail (){
     
     useEffect(()=>{
         async function getPost(){
-            const {data} = await axios.get('http://localhost:8000/posts/');
-            setPost(data[postId]);
+            const {data} = await axios.get(`${API_BASE_URL}/apis/posts/${postId}`);
+            setPost(data);
         }
         getPost();
-        console.log(post)
     },[postId])
     
     if (!post) {
@@ -58,7 +58,7 @@ function PostDetail (){
     }
     
     function deletePost(){
-        axios.delete("http://localhost:8000/posts/"+post.id)
+        axios.delete(`${API_BASE_URL}/apis/posts/${post.id}`)
         .then(()=>navigate('/'))
     }
     const converter = new QuillDeltaToHtmlConverter(post.ops,{});

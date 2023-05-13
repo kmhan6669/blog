@@ -4,6 +4,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "./apis";
 
 
 const Image = Quill.import("formats/image")
@@ -111,7 +112,7 @@ const EditorComponent = () => {
     formData.append('contents', JSON.stringify(contents));
 
     console.log(formData);
-    axios.post("http://localhost:8000/posts", formData)
+    axios.post(`${API_BASE_URL}/apis/posts`, formData)
     .then((response)=>navigate('/posts/'+ response.data.id))
   }
   function handleChange(content, delta, source, editor) {

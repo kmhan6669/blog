@@ -5,6 +5,7 @@ import axios from "axios";
 import './style.css'
 import styled from "styled-components";
 import {ReactComponent as Add} from './icon/add.svg'
+import { API_BASE_URL } from "./apis";
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
   useEffect(() => {
 
     async function getPosts(){
-      const {data} = await axios.get('http://localhost:8000/posts')
+      const {data} = await axios.get(`${API_BASE_URL}/apis/posts`)
       setPosts(data)
     }
 

@@ -70,6 +70,7 @@ const Img = styled.img`
 function PostListItem ({post}){
 
     const thumbnail = post.ops.find((op)=>op.insert?.image)?.insert.image;
+    console.log(post,'post')
 
     return(
         <PLI>

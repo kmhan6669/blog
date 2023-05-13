@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 //미들웨어 static serving하는 폴더를 지정해줌, 오픈해두면 갖다써라
 
 //example url
-app.use('/posts', upload.any(), contentsRouter);
+app.use('/apis/posts', upload.any(), contentsRouter);
 app.get('/', (req, res) => {
   res.send('hello server');
 });
