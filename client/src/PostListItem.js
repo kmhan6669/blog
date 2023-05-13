@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from 'styled-components'
 import './style.css'
+import {ReactComponent as Arrow} from './icon/arrow.svg'
 
 const PLI = styled.div`
     height: 400px;
@@ -20,12 +21,11 @@ const ImgWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
-    background-color: #44ccff;
     overflow: hidden;
     position: relative;
     align-content: flex-end;
     flex-wrap: nowrap;
-    
+    background: url(${({thumbnail})=>thumbnail}) no-repeat center / cover, #333333;
 `
 const CreatorWrapper = styled.div`
     box-sizing: border-box;
@@ -56,11 +56,11 @@ const TitleWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 30px 30px 30px 30px;
+    padding: 20px 30px 20px 30px;
     position: relative;
     align-content: flex-start;
     flex-wrap: nowrap;
-    gap:10px;
+    gap:6px;
 `
 const Img = styled.img`
     width:100%;
@@ -69,18 +69,11 @@ const Img = styled.img`
 
 function PostListItem ({post}){
 
-    // post.ops.some(function(ops){
-    //     if(ops.insert && ops.insert.image) thumbnail = ops.insert.image;
-    //     return thumbnail.length > 0; 
-    // });
-
     const thumbnail = post.ops.find((op)=>op.insert?.image)?.insert.image;
-    console.log(thumbnail);
 
     return(
         <PLI>
-            <ImgWrapper>
-                <Img src={thumbnail ? thumbnail : 'https://cdn.pixabay.com/photo/2023/04/06/08/18/ai-generated-7903251__340.jpg'}/>
+            <ImgWrapper thumbnail={thumbnail}>
                 <CreatorWrapper>
                     <p>{post.creator}</p>
                     <p>{post.date}</p>
@@ -88,7 +81,7 @@ function PostListItem ({post}){
             </ImgWrapper>
             <TitleWrapper>
                 <h3>{post.title || '제목없음'}</h3>
-                <Link className="linkBtn" to={`posts/${post.id}`}>포스트 보기 ➔</Link>
+                <Link className="linkBtn" to={`posts/${post.id}`}>포스트 보기 <Arrow width='20' height='20'/> </Link>
             </TitleWrapper>
         </PLI>
     )

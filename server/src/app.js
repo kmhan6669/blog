@@ -8,8 +8,6 @@ const contentsRouter = require('./routes/contents/contents.router')
 const upload = require('./routes/contents/image.router');
 const { getContentsWhenStartServer } = require('./models/contents.models');
 
-
-
 const MONGO_URL= 'mongodb+srv://kmhan:Ex7AGzOhqEgNM0ki@blog.92gokew.mongodb.net/?retryWrites=true&w=majority'
 
 // mongoDB connection options

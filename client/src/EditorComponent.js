@@ -1,11 +1,38 @@
 import { useRef, useState, useMemo } from "react";
 import axios from 'axios';
-//이렇게 라이브러리를 불러와서 사용하면 됩니다
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import styled from "styled-components";
+
 
 const Image = Quill.import("formats/image")
 Image.sanitize = (url) => url;
+
+const EditorWrapper = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0 1.5rem 1.5rem 1.5rem;
+    gap: 1rem;
+    overflow: hidden;
+`
+const TitleWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  input {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #f7f7f7;
+  }
+  #title{
+    width: 100%;
+  }
+  #creator{
+    width: 8rem;
+  }
+`
 
 const EditorComponent = () => {
   const QuillRef = useRef();
@@ -64,7 +91,9 @@ const EditorComponent = () => {
 
     formData.append('title', title);
     formData.append('creator', creator);
-//Promise.all() 배열 모든 작업이 끝나면 출력한다.
+
+    //Promise.all() 배열 모든 작업이 끝나면 출력한다.
+
     const images = await Promise.all(
       contents.ops
         .filter((op) => op.insert?.image)
@@ -120,29 +149,39 @@ const modules = useMemo(
     'blockquote',
     'image',
   ];
-return (
-  <>
-    <div>
-      title : 
-    <input onChange={(e) => { setTitle(e.target.value)}} value={title}></input>
-      creator : 
-      <input onChange={(e) => { setCreator(e.target.value) }} value={creator}></input>
-    </div>
-      <ReactQuill
-        ref={(element) => {
-          if (element !== null) {
-            QuillRef.current = element;
-          }
-        }}
-        value={contents}
-        onChange={handleChange}
-        modules={modules}
-        theme="snow"
-        placeholder="내용을 입력해주세요."
-        formats={formats}
-      />
-      <button onClick={submit}>Submit</button>
-   </>
-)
+
+  return (
+    <EditorWrapper>
+      <TitleWrapper>
+        <input 
+          id="creator"
+          onChange={(e) => { setCreator(e.target.value) }} 
+          defaultValue={creator ? creator: '손님'}
+          placeholder="작성자"
+        ></input>
+        <input 
+          id="title"
+          onChange={(e) => { setTitle(e.target.value)}} 
+          value={title}
+          placeholder="제목을 입력해주세요."
+        ></input>
+      </TitleWrapper>
+        <ReactQuill
+          ref={(element) => {
+            if (element !== null) {
+              QuillRef.current = element;
+            }
+          }}
+          value={contents}
+          onChange={handleChange}
+          modules={modules}
+          theme="snow"
+          placeholder="내용을 입력해주세요."
+          formats={formats}
+          style={{flex:'1',display:'flex',flexDirection:'column',overflow:'hidden'}}
+        />
+        <button className="btn" onClick={submit}>작성 완료</button>
+    </EditorWrapper>
+  )
 }
-  export default EditorComponent;
+export default EditorComponent;

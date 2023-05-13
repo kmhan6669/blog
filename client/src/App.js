@@ -4,6 +4,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import './style.css'
 import styled from "styled-components";
+import {ReactComponent as Add} from './icon/add.svg'
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     <div className="App">
       <Header>
         <h1>Blog</h1>
-        <Link className="btn" to={'newpost'} >새 포스트 작성</Link>
+        <Link className="btn" to={'newpost'} ><Add stroke='white' width='20' height='20'/> 새 포스트 작성</Link>
       </Header>
       <PostList posts={posts}/>
     </div>

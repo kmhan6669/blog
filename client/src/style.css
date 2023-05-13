@@ -18,6 +18,10 @@
     color: #333333;
     box-sizing: border-box;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    gap: 6px;
   }
   
 .linkBtn:hover {
@@ -26,13 +30,21 @@
 
 .btn {
     text-decoration: none;
-    background-color: #111111;
+    background-color: #1d1d1d;
     color: white;
     box-sizing: border-box;
-    font-weight: 600;
-    padding: 8px;
+    font-weight: 500;
+    padding: 0px 12px;
+    height: 40px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
   
 .btn:hover {
-    background-color: #333333;
+    background-color: #111111;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
 }
