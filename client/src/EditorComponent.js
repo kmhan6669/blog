@@ -13,25 +13,23 @@ const EditorComponent = () => {
   const [title, setTitle] = useState("");
   const [creator, setCreator] = useState("");
 
-  // 이미지를 업로드 하기 위한 함수
+
   const imageHandler = () => {
 
-    // 1. 이미지를 저장할 input type=file DOM을 만든다.
+
     const input = document.createElement('input');
-    // 속성 써주기
+
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
-    input.click(); // 에디터 이미지버튼을 클릭하면 이 input이 클릭된다.
-    // input이 클릭되면 파일 선택창이 나타난다.
+    input.click();
 
-    // input에 변화가 생긴다면 = 이미지를 선택
     input.addEventListener('change', async () => {
       console.log('온체인지');
       const file = input.files[0];
-      // multer에 맞는 형식으로 데이터 만들어준다.
+
       const formData = new FormData();
-      formData.append('img', file); // formData는 키-밸류 구조
-      // 백엔드 multer라우터에 이미지를 보낸다.
+      formData.append('img', file);
+
       try {
         // const result = await axios.post('http://localhost:8000/image', formData);
         // const IMG_URL = result.data.url;
@@ -82,7 +80,6 @@ const EditorComponent = () => {
     formData.append('contents', JSON.stringify(contents));
 
     console.log(formData);
-
     axios.post("http://localhost:8000/posts", formData)
   }
   function handleChange(content, delta, source, editor) {
