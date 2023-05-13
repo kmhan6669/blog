@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import EditorComponent from "./EditorComponent";
+import EditorComponent2 from "./EditorComponent2";
 import styled from "styled-components";
 
 const EditorWrapper = styled.div`
@@ -19,15 +19,15 @@ const Header = styled.div`
     gap: 20px;
 `
 
-function NewPost(){
+function PostEdit(){
     return(
         <EditorWrapper>
             <Header>
                 <Link className="linkBtn" to={'/'}>블로그 홈</Link>
-                <h3>새 포스트 작성</h3>
+                <h3>포스트 수정</h3>
             </Header>
-            <EditorComponent></EditorComponent>
+            <EditorComponent2></EditorComponent2>
         </EditorWrapper>
     )
 }
-export default NewPost;
+export default PostEdit;

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import styled from "styled-components";
+import {ReactComponent as Edit} from '../icon/edit.svg'
+
 
 const DetailWrapper = styled.div`
     max-width: 900px;
@@ -55,7 +57,7 @@ function PostDetail (){
         <DetailWrapper>
             <Header>
                 <Link className="linkBtn" to={'/'}>블로그 홈</Link>
-                <Link className="btn">포스트 수정</Link>
+                <Link className="btn" to={`./edit`}><Edit stroke='white' width='18' height='18'/>포스트 수정</Link>
             </Header>
             <Contents>
                 <Info>

@@ -8,6 +8,7 @@ import {
 import ErrorPage from "./ErrorPage";
 import PostDetail from './posts/PostDetail';
 import NewPost from './NewPost.js'
+import PostEdit from './posts/PostEdit';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: 'posts/:postId',
     element: <PostDetail />
+  },
+  {
+    path: 'posts/:postId/edit',
+    element: <PostEdit />
   },
   {
     path: 'newpost',
