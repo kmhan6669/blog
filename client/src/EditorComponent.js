@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 
 const Image = Quill.import("formats/image")
@@ -39,6 +40,8 @@ const EditorComponent = () => {
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState("");
   const [creator, setCreator] = useState("");
+  const navigate = useNavigate();
+
 
 
   const imageHandler = () => {
@@ -110,7 +113,7 @@ const EditorComponent = () => {
 
     console.log(formData);
     axios.post("http://localhost:8000/posts", formData)
-
+    .then((response)=>navigate('/posts/'+ response.data))
   }
   function handleChange(content, delta, source, editor) {
     setContents(editor.getContents());
