@@ -1,11 +1,13 @@
 const imageRouter = require('express').Router();
 const path = require('path');
 const multer = require('multer');
-
+const fs = require("fs");
 const upload = multer({
     storage: multer.diskStorage({
         // 저장할 장소
+        
         destination(req, file, cb) {
+            fs.mkdirSync(path, { recursive: true });
             cb(null, 'public/uploads');
         },
         // 저장할 이미지의 파일명
