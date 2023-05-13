@@ -1,11 +1,9 @@
-const contentesRouter = require('express').Router();
+const contentsRouter = require('express').Router();
 
-const { httpGetAllContents, httpPostContent, httpDeleteContent, httpModifyContent } = require('./contents.controller')
+const { httpGetAllContents, httpPostContent, httpDeleteContent, httpModifyContent }= require('./contents.controller')
 
-contentesRouter.route('/')
-  .get(httpGetAllContents)
-  .post(httpPostContent)
-  .delete(httpDeleteContent)
-  .patch(httpModifyContent);
+contentsRouter.get('/', httpGetAllContents);
   
-module.exports = contentesRouter;
+contentsRouter.post('/', httpPostContent);
+
+module.exports = contentsRouter;

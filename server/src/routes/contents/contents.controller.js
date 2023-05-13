@@ -6,12 +6,8 @@ async function httpGetAllContents (req, res) {
 }
 //Post content
 async function httpPostContent (req, res) {
-    const newContents = req.body;
-    if( !newContents.creator || !newContents.ops ){
-      return res.status(400).json({ error: "missing required property"})
-    }
-    await postNewContents(newContents);
-    res.status(201).json(newContents);
+  console.log(req)
+  res.send();
 }
 //Modify content
 async function httpModifyContent (req, res) {

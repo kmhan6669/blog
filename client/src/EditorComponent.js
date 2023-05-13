@@ -83,12 +83,7 @@ const EditorComponent = () => {
 
     console.log(formData);
 
-    // axios.post("http://localhost:8000/posts", {
-    //   creator: creator, 
-    //   date: new Date(), 
-    //   ...contents,
-    //   title: title
-    // })
+    axios.post("http://localhost:8000/posts", formData)
   }
   function handleChange(content, delta, source, editor) {
     setContents(editor.getContents());

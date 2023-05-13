@@ -19,6 +19,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
-    "connect-multiparty": "^2.2.0"
+    "connect-multiparty": "^2.2.0",
+    "dotenv": "^16.0.3"
   }
 }
