@@ -1,6 +1,6 @@
 const contentsDatabase = require('./contents.mongo');
 const DEFAULT_ID = 0;
-//quilljs delta 포멧 ---수정 해야함
+
 const contents = {
   id: DEFAULT_ID,
   date : new Date(),
@@ -29,7 +29,7 @@ async function getAllContents () {
 }
 // content 하나 보내는 함수
 async function getContent(id) {
-  return await contentsDatabase.find({id : id},{_id: 0, __v: 0,});
+  return await contentsDatabase.findOne({id : id},{_id: 0, __v: 0,});
 }
 
 //마지막 id 리턴하는 함수
@@ -48,14 +48,16 @@ async function saveContents (content) {
 
 // 저장할 데이터를 스키마에 맞게 바꿔서 저장 함수
 async function postNewContents (content){
-    const newContentId = (await getLatestContentIdNumber()) + 1;
-    const newContent = Object.assign(
-      content, 
-      {
-        id: newContentId,
-        date: new Date()
-      }
-    );
+
+      const newContentId = (await getLatestContentIdNumber()) + 1;
+      const  newContent = Object.assign(
+        content, 
+        {
+          id: newContentId,
+          date: new Date()
+        }
+      );
+    
 
     await saveContents(newContent);
   }
@@ -72,6 +74,7 @@ module.exports = {
   postNewContents,
   getAllContents,
   getContentsWhenStartServer,
+  getLatestContentIdNumber,
   postModifyContent,
   deleteContent,
   getContent,
