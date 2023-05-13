@@ -1,4 +1,4 @@
-// const multipart = require('connect-multiparty');
+const multipart = require('connect-multiparty');
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
@@ -21,7 +21,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 
-// CORS설정
+// 미들웨어
 app.use(cors());
 // morgan 로그관리
 app.use(morgan('combined'));
@@ -35,14 +35,14 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 //example url
 app.use('/posts', upload.any(), contentsRouter);
 app.get('/', (req, res) => {
-  res.send("hello server")
+  res.send('hello server');
 });
 
 async function startSever () {
   await mongoose.connect(MONGO_URL);
   await getContentsWhenStartServer();
   app.listen(8000, ()=>{
-    console.log('listening on port 8000...')
+    console.log('listening on port 8000...');
   });
 }
 startSever();

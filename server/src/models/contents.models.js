@@ -1,11 +1,11 @@
 const contentsDatabase = require('./contents.mongo');
 const DEFAULT_ID = 0;
-//quilljs delta 포멧 ---수정 해야함
+
 const contents = {
   id: DEFAULT_ID,
   date : new Date(),
   creator: 'hankm',
-  title: "카리나 묵직",
+  title: "카리나",
   ops:[{"insert":"카리나 사진이 나올때까지만 서버건들고"},{"insert":{"image":"http://localhost:8000/uploads/914c56d6-ce05-413b-9299-6e545a5326b3.jpg"}},{"insert":"아니면 좀 도와달라하자.."},{"insert":"\n"}]
 };
 
@@ -29,7 +29,7 @@ async function getAllContents () {
 }
 // content 하나 보내는 함수
 async function getContent(id) {
-  return await contentsDatabase.find({id : id},{_id: 0, __v: 0,});
+  return await contentsDatabase.findOne({id : id},{_id: 0, __v: 0,});
 }
 
 //마지막 id 리턴하는 함수
@@ -48,16 +48,20 @@ async function saveContents (content) {
 
 // 저장할 데이터를 스키마에 맞게 바꿔서 저장 함수
 async function postNewContents (content){
-    const newContentId = (await getLatestContentIdNumber()) + 1;
-    const newContent = Object.assign(
-      content, 
-      {
-        id: newContentId,
-        date: new Date()
-      }
-    );
+
+      const newContentId = (await getLatestContentIdNumber()) + 1;
+      const  newContent = Object.assign(
+        content, 
+        {
+          id: newContentId,
+          date: new Date()
+        }
+      );
+    
 
     await saveContents(newContent);
+
+    return newContent;
   }
 
 async function postModifyContent (contentId) {
@@ -72,6 +76,7 @@ module.exports = {
   postNewContents,
   getAllContents,
   getContentsWhenStartServer,
+  getLatestContentIdNumber,
   postModifyContent,
   deleteContent,
   getContent,

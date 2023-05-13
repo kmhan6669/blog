@@ -113,7 +113,7 @@ const EditorComponent = () => {
 
     console.log(formData);
     axios.post("http://localhost:8000/posts", formData)
-    .then((response)=>navigate('/posts/'+ response.data))
+    .then((response)=>navigate('/posts/'+ response.data.id))
   }
   function handleChange(content, delta, source, editor) {
     setContents(editor.getContents());
