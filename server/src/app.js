@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
   res.send('hello server');
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
 async function startSever () {
   await mongoose.connect(MONGO_URL);
   await getContentsWhenStartServer();
