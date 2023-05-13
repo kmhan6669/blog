@@ -5,7 +5,7 @@ const contents = {
   id: DEFAULT_ID,
   date : new Date(),
   creator: 'hankm',
-  title: "카리나 묵직",
+  title: "카리나",
   ops:[{"insert":"카리나 사진이 나올때까지만 서버건들고"},{"insert":{"image":"http://localhost:8000/uploads/914c56d6-ce05-413b-9299-6e545a5326b3.jpg"}},{"insert":"아니면 좀 도와달라하자.."},{"insert":"\n"}]
 };
 

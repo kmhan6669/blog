@@ -9,6 +9,7 @@ const upload = require('./routes/contents/image.router');
 const { getContentsWhenStartServer } = require('./models/contents.models');
 
 
+
 const MONGO_URL= 'mongodb+srv://kmhan:Ex7AGzOhqEgNM0ki@blog.92gokew.mongodb.net/?retryWrites=true&w=majority'
 
 // mongoDB connection options
@@ -40,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 async function startSever () {
-  await mongoose.connect(process.env.MONGODB_URL);
+  await mongoose.connect(MONGO_URL);
   await getContentsWhenStartServer();
   app.listen(8000, ()=>{
     console.log('listening on port 8000...');
