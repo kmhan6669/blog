@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import styled from "styled-components";
 import {ReactComponent as Edit} from '../icon/edit.svg'
+import {ReactComponent as Delete} from '../icon/delete.svg'
+import '../style.css'
 
 
 const DetailWrapper = styled.div`
@@ -32,11 +34,16 @@ const Info = styled.div`
     gap:8px;
     margin-bottom:2rem;
 `
+const ButtonGroup = styled.div`
+    display: flex;
+    gap: 8px;
+`
 
 function PostDetail (){
     const {postId} = useParams();
     const [post, setPost] = useState();
-
+    const navigate = useNavigate();
+    
     useEffect(()=>{
         async function getPost(){
             const {data} = await axios.get('http://localhost:8000/posts/');
@@ -45,19 +52,31 @@ function PostDetail (){
         getPost();
         console.log(post)
     },[postId])
-
+    
     if (!post) {
         return <div>Loading...</div>;
     }
-
+    
+    function deletePost(){
+        axios.delete("http://localhost:8000/posts/"+post.id)
+        .then(()=>navigate('/'))
+    }
     const converter = new QuillDeltaToHtmlConverter(post.ops,{});
     const html = converter.convert();
+
+    const images = document.querySelectorAll('img');
+    images.forEach((img)=>{
+        img.style.width = '100%'
+    })
 
     return(
         <DetailWrapper>
             <Header>
                 <Link className="linkBtn" to={'/'}>블로그 홈</Link>
-                <Link className="btn" to={`./edit`}><Edit stroke='white' width='18' height='18'/>포스트 수정</Link>
+                <ButtonGroup>
+                    <Link className="btn" to={`./edit`}><Edit stroke='white' width='18' height='18'/>포스트 수정</Link>
+                    <Link className="btn" onClick={deletePost}><Delete stroke='white' width='18' height='18'/>삭제</Link>
+                </ButtonGroup>
             </Header>
             <Contents>
                 <Info>
@@ -65,7 +84,7 @@ function PostDetail (){
                     <h3>{post.creator}</h3>
                     <p>{post.date}</p>
                 </Info>
-                <div dangerouslySetInnerHTML={{__html:html}} />
+                <div className="deltaCustomStyle" dangerouslySetInnerHTML={{__html:html}} />
             </Contents>
         </DetailWrapper>
     )
