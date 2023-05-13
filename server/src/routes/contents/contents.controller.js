@@ -1,4 +1,4 @@
-const { postNewContents, getAllContents, getContent, postModifyContent, deleteContent, getLatestContentIdNumber } = require('../../models/contents.models');
+const { postNewContents, getAllContents, getContent, postModifyContent, deleteContent } = require('../../models/contents.models');
 
 //Get contents
 async function httpGetAllContents (req, res) {
@@ -10,11 +10,11 @@ async function httpGetAllContents (req, res) {
 async function httpGetContent (req, res) {
   console.log(req.params.id)
   const id = Number(req.params.id)
-  const content = await getContent(id);
+  const content = await getContent(id)
   if (content === null) {
     return res.status(404).send();
   }
-  res.status(200).json(content);
+  res.status(200).json(await getContent(id));
 }
 //Post content
 async function httpPostContent (req, res) {
@@ -29,10 +29,9 @@ async function httpPostContent (req, res) {
     op.insert.image = joinUrl;
   })
   newContent.ops = newC.ops;
-  
-  await postNewContents(newContent);
-  const id = await getLatestContentIdNumber()
-  res.send(id);
+
+  const content = await postNewContents(newContent);
+  res.json({ id: content.id });
 }
 
 //Delete content

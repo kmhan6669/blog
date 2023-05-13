@@ -60,6 +60,8 @@ async function postNewContents (content){
     
 
     await saveContents(newContent);
+
+    return newContent;
   }
 
 async function postModifyContent (contentId) {
